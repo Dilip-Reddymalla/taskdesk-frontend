@@ -1,0 +1,48 @@
+/* Avatar Component Styles */
+
+.avatar {
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  flex-shrink: 0;
+  overflow: hidden;
+  user-select: none;
+  letter-spacing: 0.02em;
+}
+
+/* Sizes */
+.avatar--xs { width: 24px; height: 24px; font-size: 10px; }
+.avatar--sm { width: 30px; height: 30px; font-size: 12px; }
+.avatar--md { width: 38px; height: 38px; font-size: 14px; }
+.avatar--lg { width: 52px; height: 52px; font-size: 18px; }
+.avatar--xl { width: 72px; height: 72px; font-size: 24px; }
+
+.avatar__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Overflow pill */
+.avatar--overflow {
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  font-size: 11px;
+}
+
+/* Stack */
+.avatar-stack {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.avatar-stack > .avatar {
+  margin-left: -8px;
+  border: 2px solid var(--bg-surface);
+}
+.avatar-stack > .avatar:last-child {
+  margin-left: 0;
+}
