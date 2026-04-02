@@ -1,13 +1,10 @@
-/* Modal Component Styles */
-
 /* ── 1. Static Backdrop ── */
 .modal-overlay {
   position: fixed;
   inset: 0;
+  z-index: 2000;
   background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(8px);
-  z-index: 2000;
-  animation: fadeIn 150ms ease both;
 }
 
 [data-theme="light"] .modal-overlay {
@@ -15,94 +12,70 @@
   backdrop-filter: blur(12px);
 }
 
-/* ── 2. Scrollable Wrapper ── */
-/* 
-  This div sits ON TOP of the backdrop.
-  It is position: fixed and spans the whole screen.
-  If the modal is taller than the screen, THIS wrapper scrolls,
-  preventing ANY content from ever getting permanently clipped.
-*/
+/* ── 2. Wrapper (handles positioning + outer scroll if needed) ── */
 .modal-wrapper {
   position: fixed;
   inset: 0;
   z-index: 2001;
+
   display: flex;
-  align-items: center; /* Center it vertically if there's enough space */
   justify-content: center;
-  overflow-y: auto;    /* Let the whole screen scroll if needed! */
-  padding: 40px;       /* Safe padding so it never touches screen edges completely */
-  height: 85vh;
+  /* align-items: center; */
+  align-items: stretch;
+  padding: 40px 16px;
+
+  overflow-y: auto;   /* ✅ IMPORTANT */
 }
 
 /* ── 3. Modal Box ── */
 .modal-container {
+  width: 100%;
+  max-width: 720px;
+
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-modal);
+
   display: flex;
   flex-direction: column;
-  width: 100%;
-  margin: auto; /* Works with flex to keep it centered */
-  height: max-content; /* Ensure it grows fully to its content */
+
+  /* max-height: calc(100vh - 80px); ✅ BEST approach */
   animation: scaleIn 180ms ease both;
-  /* NO overflow: hidden on the container anymore! Let it breathe inside the wrapper. */
+  height: 100%;           /* 🔥 take full wrapper height */
+  max-height: 100%; 
 }
 
-/* ── Sizes ── */
-.modal--sm { max-width: 400px; }
-.modal--md { max-width: 560px; }
-.modal--lg { max-width: 720px; }
-.modal--xl { max-width: 900px; }
-
-/* ── Tablet (≤ 1024px) ── */
-@media (max-width: 1024px) {
-  .modal--sm { max-width: 360px; }
-  .modal--md { max-width: 480px; }
-  .modal--lg { max-width: 600px; }
-  .modal--xl { max-width: 720px; }
+/* ── Modal Body (ONLY SCROLL AREA) ── */
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  padding: 20px 24px;
 }
 
-/* ── Mobile (≤ 768px) ── */
-@media (max-width: 768px) {
-  .modal-wrapper {
-    padding: 24px;
-  }
-}
-
-/* ── Small Mobile (≤ 480px): Safe Scrolling Mobile View ── */
-@media (max-width: 480px) {
-  .modal-wrapper {
-    padding: 40px 16px 80px 16px; /* Huge bottom padding to safely clear any mobile bottom nav bars */
-    align-items: flex-start;      /* Align to top so it flows down naturally */
-  }
-  .modal-container {
-    border-radius: var(--radius-xl);
-  }
-  .modal--sm,
-  .modal--md,
-  .modal--lg,
-  .modal--xl {
-    max-width: 100%;
-  }
-}
-
-/* ── Modal Header ── */
+/* ── Header ── */
 .modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px 24px 16px;
   border-bottom: 1px solid var(--border);
-  background: inherit;
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
 }
 
 .modal-title {
   font-size: 16px;
   font-weight: 600;
   color: var(--text-primary);
-  margin: 0;
+}
+
+/* ── Footer ── */
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
 /* ── Close Button ── */
@@ -115,26 +88,42 @@
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
-  transition: color var(--transition-fast), background var(--transition-fast);
 }
+
 .modal-close:hover {
   color: var(--text-primary);
   background: var(--bg-hover);
 }
 
-/* ── Modal Body ── */
-.modal-body {
-  padding: 20px 24px;
+/* ── Sizes ── */
+.modal--sm { max-width: 400px; }
+.modal--md { max-width: 560px; }
+.modal--lg { max-width: 720px; }
+.modal--xl { max-width: 900px; }
+
+/* ── Tablet ── */
+@media (max-width: 1024px) {
+  .modal--sm { max-width: 360px; }
+  .modal--md { max-width: 480px; }
+  .modal--lg { max-width: 600px; }
+  .modal--xl { max-width: 720px; }
 }
 
-/* ── Modal Footer ── */
-.modal-footer {
-  padding: 16px 24px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 10px;
-  background: inherit;
-  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .modal-wrapper {
+    padding: 24px;
+  }
 }
+
+/* ── Small Mobile ── */
+@media (max-width: 480px) {
+  .modal-wrapper {
+    align-items: flex-start;
+    padding: 40px 16px 80px;
+  }
+
+  .modal-container {
+    max-width: 100%;
+  }
+} 

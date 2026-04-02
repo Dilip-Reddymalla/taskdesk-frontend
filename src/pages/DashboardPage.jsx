@@ -10,8 +10,8 @@ import Avatar from '../components/ui/Avatar';
 import { CardSkeleton } from '../components/ui/Loader';
 import '../styles/pages/dashboard.css';
 
-const DAY_SHORT = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-
+// Array for fallback skeletons
+const SKELETON_DAYS = [0, 1, 2, 3, 4, 5, 6];
 function XPFloater({ visible }) {
   if (!visible) return null;
   return <div className="xp-floater">+10 XP ⚡</div>;
@@ -135,19 +135,26 @@ function DashboardPage() {
             <h3 className="dashboard__section-title">Weekly completions</h3>
             <div className="dashboard__chart">
               {statsLoading
-                ? DAY_SHORT.map(d => <div key={d} className="skeleton" style={{height: '60px', borderRadius: 'var(--radius-sm)'}} />)
+                ? SKELETON_DAYS.map(i => <div key={i} className="skeleton" style={{height: '60px', borderRadius: 'var(--radius-sm)'}} />)
                 : (stats?.weeklyCompletion ?? Array(7).fill({count:0})).map((day, i) => {
                     const heightPct = Math.max(6, (day.count / maxWeekly) * 100);
-                    const today = i === 6; // assuming last = today
+                    const todayLocal = new Date();
+                    const localDateStr = `${todayLocal.getFullYear()}-${String(todayLocal.getMonth() + 1).padStart(2, '0')}-${String(todayLocal.getDate()).padStart(2, '0')}`;
+                    const isToday = day.date === localDateStr;
+                    
+                    // Parse 'YYYY-MM-DD' securely as UTC to get the weekday
+                    const dayLabel = day.date 
+                      ? new Date(`${day.date}T12:00:00Z`).toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' })
+                      : '';
                     return (
                       <div className="chart__col" key={i}>
                         <span className="chart__count">{day.count > 0 ? day.count : ''}</span>
                         <div
-                          className={`chart__bar ${today ? 'chart__bar--today' : ''}`}
+                          className={`chart__bar ${isToday ? 'chart__bar--today' : ''}`}
                           style={{ height: `${heightPct}%` }}
-                          title={`${DAY_SHORT[i]}: ${day.count} tasks`}
+                          title={`${dayLabel}: ${day.count} tasks`}
                         />
-                        <span className="chart__label">{DAY_SHORT[i]}</span>
+                        <span className="chart__label">{dayLabel}</span>
                       </div>
                     );
                   })

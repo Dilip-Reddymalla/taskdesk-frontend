@@ -328,3 +328,8 @@ ul, ol { list-style: none; }
   color: var(--text-muted);
   margin-bottom: 12px;
 }
+
+/* 🔒 Lock background when modal is open */
+body.modal-open {
+  overflow: hidden;
+}
