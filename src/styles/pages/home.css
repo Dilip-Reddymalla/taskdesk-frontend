@@ -20,7 +20,7 @@
   border-bottom: 1px solid transparent;
 }
 .home-nav--scrolled {
-  background: rgba(13,13,26,0.85);
+  background: var(--bg-base-translucent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-color: var(--border);
@@ -59,6 +59,25 @@
   transition: background var(--transition-fast), box-shadow var(--transition-fast);
 }
 .home-nav__cta:hover { background: var(--accent-deep); box-shadow: var(--shadow-glow); color: #fff; }
+
+.home-nav__theme-toggle {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all var(--transition-fast);
+}
+.home-nav__theme-toggle:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-hover);
+  transform: scale(1.05);
+}
+
+.home-nav__mobile-right { display: none; }
 .home-nav__mobile-cta { display: none; }
 
 /* ── Hero ── */
@@ -76,7 +95,7 @@
   position: absolute;
   top: 20%; left: 50%;
   width: 600px; height: 600px;
-  background: radial-gradient(ellipse, rgba(124,58,237,0.18) 0%, transparent 70%);
+  background: radial-gradient(ellipse, var(--accent-translucent, rgba(124,58,237,0.15)) 0%, transparent 70%);
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
@@ -186,9 +205,9 @@
   border-bottom: 1px solid var(--border);
 }
 .mockup__dot { width: 10px; height: 10px; border-radius: 50%; }
-.mockup__dot--red   { background: #EF4444; }
-.mockup__dot--amber { background: #F59E0B; }
-.mockup__dot--green { background: #10B981; }
+.mockup__dot--red   { background: var(--red); }
+.mockup__dot--amber { background: var(--amber); }
+.mockup__dot--green { background: var(--green); }
 .mockup__title { font-size: 12px; color: var(--text-muted); margin-left: 6px; }
 
 .mockup__body { padding: 18px; }
@@ -445,6 +464,11 @@
   .home-nav { padding: 0 20px; }
   .home-nav__links { display: none; }
   .home-nav__cta { display: none; }
+  .home-nav__mobile-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
   .home-nav__mobile-cta {
     display: block;
     background: var(--accent);

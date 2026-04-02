@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTheme } from '../context/ThemeContext';
 import '../styles/pages/home.css';
 
 const FEATURES = [
@@ -17,10 +18,22 @@ const FEATURES = [
   { icon: '🛡️', title: 'Role Permissions', desc: 'Owners control membership. Assign tasks to specific members.' },
 ];
 
-const TESTIMONIALS = [
-  { initials: 'AR', name: 'Aditya R.', role: 'Product Lead', company: 'Fintech Startup', text: 'Task Desk replaced three tools for us. The streak system alone keeps our team more consistent than any other method we tried.' },
-  { initials: 'SM', name: 'Sara M.', role: 'Engineering Manager', company: 'SaaS Co.', text: 'The real-time updates changed how we work. No more "did you see my message?" — the board just updates itself.' },
-  { initials: 'JK', name: 'James K.', role: 'Freelancer', company: 'Self-employed', text: 'I use it solo and the XP system genuinely makes me look forward to getting tasks done. It\'s silly, but it works.' },
+const FEATURE_HIGHLIGHTS = [
+  { 
+    initials: '🔥', 
+    name: 'The Streak System', 
+    text: 'Consistency is key. Every day you complete a task, your streak grows. It’s a simple but powerful visual nudge to keep going.' 
+  },
+  { 
+    initials: '⚡', 
+    name: 'Gamified Rewards', 
+    text: 'Earn XP for every finished task. Watch your level rise as you get through your to-do list. Productivity has never felt more rewarding.' 
+  },
+  { 
+    initials: '👥', 
+    name: 'Seamless Team Sync', 
+    text: 'Real-time updates ensure everyone stays on the same page. No more manual status updates—just share a plan and collaborate.' 
+  },
 ];
 
 function AnimatedXP() {
@@ -43,6 +56,7 @@ function AnimatedXP() {
 
 function HomePage() {
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
 
   React.useEffect(() => {
@@ -58,10 +72,10 @@ function HomePage() {
         <div className="home-nav__logo">
           <div className="home-nav__logo-icon">
             <svg width="18" height="18" viewBox="0 0 24 24">
-              <rect x="3" y="3" width="7" height="7" rx="1.5" fill="#7C3AED" />
-              <rect x="14" y="3" width="7" height="7" rx="1.5" fill="#7C3AED" opacity="0.6" />
-              <rect x="3" y="14" width="7" height="7" rx="1.5" fill="#7C3AED" opacity="0.6" />
-              <rect x="14" y="14" width="7" height="7" rx="1.5" fill="#7C3AED" opacity="0.3" />
+              <rect x="3" y="3" width="7" height="7" rx="1.5" fill="var(--accent)" />
+              <rect x="14" y="3" width="7" height="7" rx="1.5" fill="var(--accent)" opacity="0.6" />
+              <rect x="3" y="14" width="7" height="7" rx="1.5" fill="var(--accent)" opacity="0.6" />
+              <rect x="14" y="14" width="7" height="7" rx="1.5" fill="var(--accent)" opacity="0.3" />
             </svg>
           </div>
           <span className="home-nav__logo-text">Task Desk</span>
@@ -71,9 +85,24 @@ function HomePage() {
           <a href="#how-it-works" className="home-nav__link">How it works</a>
           <a href="#gamification" className="home-nav__link">Gamification</a>
           <Link to="/login" className="home-nav__link">Login</Link>
+          <button 
+            className="home-nav__theme-toggle" 
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
         </div>
         <Link to="/register" className="home-nav__cta">Get started free</Link>
-        <button className="home-nav__mobile-cta" onClick={() => navigate('/register')}>Start free</button>
+        <div className="home-nav__mobile-right">
+          <button 
+            className="home-nav__theme-toggle home-nav__theme-toggle--mobile" 
+            onClick={toggleTheme}
+          >
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
+          <button className="home-nav__mobile-cta" onClick={() => navigate('/register')}>Start free</button>
+        </div>
       </nav>
 
       {/* ── HERO ── */}
@@ -81,7 +110,7 @@ function HomePage() {
         <div className="home-hero__glow" aria-hidden="true" />
         <div className="home-hero__inner">
           <div className="home-hero__pill">
-            ✦ Real-time collaboration — now in beta
+            ✦ Real-time collaboration
           </div>
           <h1 className="home-hero__h1">
             Plan smarter.<br />
@@ -203,23 +232,22 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ── */}
+      {/* ── FEATURES FOCUS (FORMERLY TESTIMONIALS) ── */}
       <section className="home-testimonials">
         <div className="home-section-header">
-          <p className="home-section-eyebrow">What teams say</p>
-          <h2 className="home-section-title">Loved by builders</h2>
+          <p className="home-section-eyebrow">Powered by Focus</p>
+          <h2 className="home-section-title">Built for consistency</h2>
         </div>
         <div className="home-testimonials__grid">
-          {TESTIMONIALS.map((t, i) => (
+          {FEATURE_HIGHLIGHTS.map((f, i) => (
             <div className="home-testimonial-card" key={i}>
-              <p className="home-testimonial-card__text">"{t.text}"</p>
-              <div className="home-testimonial-card__author">
-                <div className="home-testimonial-card__avatar">{t.initials}</div>
+              <div className="home-testimonial-card__author" style={{ marginBottom: '16px' }}>
+                <div className="home-testimonial-card__avatar" style={{ fontSize: '20px' }}>{f.initials}</div>
                 <div>
-                  <p className="home-testimonial-card__name">{t.name}</p>
-                  <p className="home-testimonial-card__role">{t.role} · {t.company}</p>
+                  <p className="home-testimonial-card__name" style={{ fontSize: '15px' }}>{f.name}</p>
                 </div>
               </div>
+              <p className="home-testimonial-card__text" style={{ fontStyle: 'normal' }}>{f.text}</p>
             </div>
           ))}
         </div>
@@ -230,10 +258,10 @@ function HomePage() {
         <div className="home-footer__logo">
           <div className="home-nav__logo-icon">
             <svg width="16" height="16" viewBox="0 0 24 24">
-              <rect x="3" y="3" width="7" height="7" rx="1.5" fill="#7C3AED" />
-              <rect x="14" y="3" width="7" height="7" rx="1.5" fill="#7C3AED" opacity="0.6" />
-              <rect x="3" y="14" width="7" height="7" rx="1.5" fill="#7C3AED" opacity="0.6" />
-              <rect x="14" y="14" width="7" height="7" rx="1.5" fill="#7C3AED" opacity="0.3" />
+              <rect x="3" y="3" width="7" height="7" rx="1.5" fill="var(--accent)" />
+              <rect x="14" y="3" width="7" height="7" rx="1.5" fill="var(--accent)" opacity="0.6" />
+              <rect x="3" y="14" width="7" height="7" rx="1.5" fill="var(--accent)" opacity="0.6" />
+              <rect x="14" y="14" width="7" height="7" rx="1.5" fill="var(--accent)" opacity="0.3" />
             </svg>
           </div>
           <span className="home-nav__logo-text" style={{fontSize:'15px'}}>Task Desk</span>
