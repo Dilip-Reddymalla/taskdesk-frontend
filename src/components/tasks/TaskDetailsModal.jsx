@@ -6,7 +6,7 @@ import Button from '../ui/Button';
 import PriorityBadge from '../ui/PriorityBadge';
 import { formatDate } from '../../utils/date';
 
-function TaskDetailsModal({ isOpen, onClose, task, onEdit, onComplete, onDelete }) {
+function TaskDetailsModal({ isOpen, onClose, task, onEdit, onComplete, onDelete, onUploaded }) {
   const { uploadImages } = useTasks();
   const { addToast } = useToast();
   const fileInputRef = useRef(null);
@@ -56,6 +56,9 @@ function TaskDetailsModal({ isOpen, onClose, task, onEdit, onComplete, onDelete 
       const addedImages = await uploadImages(formData);
       if (addedImages && addedImages.length > 0) {
         setLocalImages(prev => [...prev, ...addedImages]);
+        if (typeof onUploaded === 'function') {
+          onUploaded(addedImages, task);
+        }
         addToast('Attachments uploaded successfully!', 'success');
       }
     } catch (err) {

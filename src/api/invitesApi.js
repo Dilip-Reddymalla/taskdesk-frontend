@@ -12,6 +12,12 @@ export async function getPendingInvites() {
   return res.data;
 }
 
+// ── GET /api/invite/get/all ──────────────────────────────────
+export async function getAllInvitesApi() {
+  const res = await api.get('/invite/get/all');
+  return res.data;
+}
+
 // ── POST /api/invite/accept/:inviteId ────────────────────────
 export async function acceptInvite(inviteId, planId) {
   const res = await api.post(`/invite/accept/${inviteId}`, { planId });

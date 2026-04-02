@@ -131,3 +131,16 @@
 
 /* Pagination */
 .tasks-page__pagination { display: flex; align-items: center; justify-content: center; gap: 12px; padding-top: 8px; font-size: 13px; color: var(--text-muted); }
+
+@media (max-width: 768px) {
+  .tasks-page__header { flex-direction: column; align-items: stretch; gap: 12px; }
+  .tasks-page__filters { flex-direction: column; align-items: stretch; }
+  .tasks-page__filter-select { width: 100%; }
+  .tasks-page__tab { padding: 10px 12px; font-size: 13px; }
+}
+
+@media (max-width: 480px) {
+  .tasks-page__title { font-size: 20px; }
+  .task-card { padding: 12px; gap: 10px; }
+  .task-card__action-btn { opacity: 1; } /* Always show actions on touch */
+}

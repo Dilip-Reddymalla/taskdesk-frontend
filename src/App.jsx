@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { SocketProvider } from './context/SocketContext';
 import { NotificationProvider } from './context/NotificationContext';
+import { ThemeProvider } from './context/ThemeContext';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import AppLayout from './components/layout/AppLayout';
 
@@ -15,7 +16,9 @@ import TasksPage from './pages/TasksPage';
 import CalendarPage from './pages/CalendarPage';
 import PlansPage from './pages/PlansPage';
 import PlanDetailPage from './pages/PlanDetailPage';
+import PlanLogPage from './pages/PlanLogPage';
 import ProfilePage from './pages/ProfilePage';
+import InvitesPage from './pages/InvitesPage';
 import NotFoundPage from './pages/NotFoundPage';
 import GoogleCallbackPage from './pages/GoogleCallbackPage';
 import VerifyEmailPage from './pages/VerifyEmailPage';
@@ -23,7 +26,8 @@ import VerifyEmailPage from './pages/VerifyEmailPage';
 function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
         <SocketProvider>
           <NotificationProvider>
             <Routes>
@@ -74,10 +78,26 @@ function App() {
                 }
               />
               <Route
+                path="/plans/:planId/log"
+                element={
+                  <ProtectedRoute>
+                    <AppLayout><PlanLogPage /></AppLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
                 path="/profile"
                 element={
                   <ProtectedRoute>
                     <AppLayout><ProfilePage /></AppLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/invites"
+                element={
+                  <ProtectedRoute>
+                    <AppLayout><InvitesPage /></AppLayout>
                   </ProtectedRoute>
                 }
               />
@@ -102,6 +122,7 @@ function App() {
           </NotificationProvider>
         </SocketProvider>
       </AuthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

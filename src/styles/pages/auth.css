@@ -209,6 +209,11 @@
 /* ── Mobile ── */
 @media (max-width: 768px) {
   .auth-page__art { display: none; }
-  .auth-page__form-panel { padding: 32px 24px; }
-  .auth-form__title { font-size: 24px; }
+}
+
+@media (max-width: 480px) {
+  .auth-page__form-panel { padding: 24px 16px; }
+  .auth-form__title { font-size: 20px; }
+  .auth-form__header { margin-bottom: 20px; }
+  .auth-form__google { padding: 9px; font-size: 13px; }
 }

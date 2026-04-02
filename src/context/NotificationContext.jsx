@@ -92,15 +92,11 @@ export function NotificationProvider({ children }) {
     const cleanup = [];
 
     cleanup.push(on('invite_received', (invite) => {
-      addNotification({
-        _id: Date.now().toString(),
-        type: 'invite_received',
-        message: `You received an invite to join "${invite?.plan?.title ?? 'a plan'}"`,
-        isRead: false,
-        createdAt: new Date().toISOString(),
-        data: invite,
-      });
-      addToast(`📨 Invite received: ${invite?.plan?.title ?? 'a plan'}`, 'invite', invite);
+      fetchNotifications();
+      let title = invite?.plan?.title;
+      // If plan wasn't populated nicely, use a generic title
+      if (!title) title = 'a plan';
+      addToast(`📨 Invite received: ${title}`, 'invite', invite);
     }));
 
     cleanup.push(on('task_created', (task) => {

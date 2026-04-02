@@ -13,6 +13,7 @@ import {
   getCalendarTasks,
   uploadTaskImages,
   editTaskInstanceApi,
+  getTaskTemplatesApi,
 } from '../api/tasksApi';
 
 /**
@@ -22,6 +23,7 @@ export function useTasks() {
   const [pendingTasks, setPendingTasks]     = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
   const [allTasks, setAllTasks]             = useState([]);
+  const [taskTemplates, setTaskTemplates]   = useState([]);
   const [loading, setLoading]               = useState(true);
   const [error, setError]                   = useState(null);
 
@@ -68,6 +70,16 @@ export function useTasks() {
       setAllTasks(data.tasks ?? []);
       setAllTasksPage(data.page ?? 1);
       setAllTasksTotal(data.totalCount ?? 0);
+    } catch (e) { setErr(e); }
+    finally { setLoading(false); }
+  }, []);
+
+  const fetchTaskTemplates = useCallback(async (planId) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await getTaskTemplatesApi(planId);
+      setTaskTemplates(data.templates ?? []);
     } catch (e) { setErr(e); }
     finally { setLoading(false); }
   }, []);
@@ -170,7 +182,8 @@ export function useTasks() {
     completedPage, completedTotal,
     allTasksPage, allTasksTotal,
     loading, error,
-    fetchPending, fetchCompleted, fetchAllTasks,
+    fetchPending, fetchCompleted, fetchAllTasks, fetchTaskTemplates,
+    taskTemplates,
     addTask, markComplete, editTask, editInstance, removeTask, removeTaskSeries,
     reschedule, search, fetchCalendar, uploadImages,
     setPendingTasks, setCompletedTasks,

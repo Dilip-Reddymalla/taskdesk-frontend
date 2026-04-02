@@ -8,6 +8,7 @@
 :root {
   /* ── Backgrounds ── */
   --bg-base:       #0D0D1A;
+  --bg-base-translucent: rgba(13, 13, 26, 0.85);
   --bg-surface:    #12121F;
   --bg-elevated:   #1A1A2E;
   --bg-hover:      #1E1E35;
@@ -67,6 +68,80 @@
   --transition-slow:   300ms ease;
 }
 
+:root[data-theme="light"] {
+  /* Backgrounds */
+  --bg-base:       #F5F4FF;
+  --bg-base-translucent: rgba(245, 244, 255, 0.85);
+  --bg-surface:    #FFFFFF;
+  --bg-elevated:   #F9F8FF;
+  --bg-hover:      #F3F0FF;
+
+  /* Brand / Accent */
+  --accent:        #7C3AED;
+  --accent-light:  #5B21B6;
+  --accent-dim:    #EDE9FE;
+  --accent-deep:   #4C1D95;
+
+  /* Semantic */
+  --cyan:          #0EA5E9;
+  --cyan-dim:      #E0F2FE;
+  --amber:         #F59E0B;
+  --amber-dim:     #FEF3C7;
+  --green:         #10B981;
+  --green-dim:     #D1FAE5;
+  --red:           #EF4444;
+  --red-dim:       #FEE2E2;
+  --pink:          #EC4899;
+  --pink-dim:      #FDF2F8;
+
+  /* Text */
+  --text-primary:   #1E1B4B;
+  --text-secondary: #374151;
+  --text-muted:     #6B7280;
+  --text-disabled:  #9CA3AF;
+
+  /* Borders */
+  --border:        #E8E5FF;
+  --border-hover:  #C4B5FD;
+  --border-active: #7C3AED;
+  --border-subtle: #F3F0FF;
+
+  /* Priority */
+  --priority-high:          #EF4444;
+  --priority-high-bg:       #FEE2E2;
+  --priority-high-text:     #991B1B;
+  --priority-medium:        #F59E0B;
+  --priority-medium-bg:     #FEF3C7;
+  --priority-medium-text:   #92400E;
+  --priority-low:           #10B981;
+  --priority-low-bg:        #D1FAE5;
+  --priority-low-text:      #065F46;
+
+  /* Shadows */
+  --shadow-card:  0 2px 12px rgba(124, 58, 237, 0.08);
+  --shadow-modal: 0 8px 40px rgba(124, 58, 237, 0.15);
+  --shadow-glow:  0 0 20px rgba(124, 58, 237, 0.12);
+}
+
+/* Visibility Utilities */
+.mobile-only-msg { display: none; }
+
+@media (max-width: 768px) {
+  .mobile-only-msg { display: block; }
+}
+
+/* Fallback for components that might not pick up root changes: force them light when theme is set */
+[data-theme="light"] .sidebar,
+[data-theme="light"] .topbar {
+  background: var(--bg-surface) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="light"] .sidebar__nav-item:hover,
+[data-theme="light"] .topbar__search:hover {
+  background: var(--bg-hover) !important;
+}
+
 /* ── Reset ── */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -82,14 +157,19 @@ html {
   text-rendering: optimizeLegibility;
 }
 
+@media (max-width: 480px) {
+  html { font-size: 13px; }
+}
+
 body {
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--text-secondary);
   background-color: var(--bg-base);
   min-height: 100vh;
   overflow-x: hidden;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
 /* ── Scrollbar ── */
