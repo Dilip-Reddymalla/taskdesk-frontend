@@ -6,11 +6,20 @@
   background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(8px);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   z-index: 2000;
-  padding: 80px 16px 16px;
+  padding: 16px;
   animation: fadeIn 150ms ease both;
+}
+
+.modal-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin-top: 8%;
 }
 
 .modal-container {
@@ -24,6 +33,7 @@
   width: 100%;
   animation: scaleIn 180ms ease both;
   overflow: hidden;
+  margin-top: 10%;
 }
 
 /* Sizes */
@@ -79,12 +89,16 @@
   gap: 10px;
 }
 
+/* Light mode: white blurry backdrop */
+[data-theme="light"] .modal-overlay {
+  background: rgba(245, 244, 255, 0.7);
+  backdrop-filter: blur(12px);
+}
+
 /* Mobile: full screen sheet */
 @media (max-width: 480px) {
   .modal-overlay {
-    padding-top: 40px;
-    padding-left: 12px;
-    padding-right: 12px;
+    padding: 12px;
   }
   .modal-container {
     border-radius: var(--radius-xl);
