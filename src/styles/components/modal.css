@@ -19,7 +19,7 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  margin-top: 8%;
+  margin-top: 8%;  
 }
 
 .modal-container {
@@ -36,11 +36,30 @@
   margin-top: 10%;
 }
 
-/* Sizes */
+/* Sizes — desktop */
 .modal--sm { max-width: 400px; }
 .modal--md { max-width: 560px; }
 .modal--lg { max-width: 720px; }
 .modal--xl { max-width: 900px; }
+
+/* Sizes — tablet (≤ 768px) */
+@media (max-width: 768px) {
+  .modal--sm { max-width: 360px; }
+  .modal--md { max-width: 480px; }
+  .modal--lg { max-width: 600px; }
+  .modal--xl { max-width: 720px; }
+}
+
+/* Sizes — mobile (≤ 480px) */
+@media (max-width: 480px) {
+  .modal--sm,
+  .modal--md,
+  .modal--lg,
+  .modal--xl {
+    max-width: 100%;
+    width: 100%;
+  }
+}
 
 .modal-header {
   display: flex;
