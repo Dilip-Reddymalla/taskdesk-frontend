@@ -142,7 +142,7 @@ function PlanLogPage() {
             No task templates found.
           </p>
         ) : (
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '600px', border: '1px solid var(--border)' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '450px', border: '1px solid var(--border)' }}>
             <thead>
               <tr style={{ background: 'var(--bg-elevated)' }}>
                 <th style={{ padding: '10px 12px', border: '1px solid var(--border)', width: '220px', minWidth: '220px' }}>Task Name</th>

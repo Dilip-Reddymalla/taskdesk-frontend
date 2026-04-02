@@ -10,8 +10,10 @@
   --bg-base:       #0D0D1A;
   --bg-base-translucent: rgba(13, 13, 26, 0.85);
   --bg-surface:    #12121F;
+  --bg-surface-translucent: rgba(18, 18, 31, 0.7);
   --bg-elevated:   #1A1A2E;
   --bg-hover:      #1E1E35;
+  --accent-translucent: rgba(124, 58, 237, 0.15);
 
   /* ── Brand / Accent ── */
   --accent:        #7C3AED;
@@ -73,8 +75,10 @@
   --bg-base:       #F5F4FF;
   --bg-base-translucent: rgba(245, 244, 255, 0.85);
   --bg-surface:    #FFFFFF;
+  --bg-surface-translucent: rgba(255, 255, 255, 0.7);
   --bg-elevated:   #F9F8FF;
   --bg-hover:      #F3F0FF;
+  --accent-translucent: rgba(124, 58, 237, 0.1);
 
   /* Brand / Accent */
   --accent:        #7C3AED;

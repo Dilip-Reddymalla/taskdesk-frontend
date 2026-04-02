@@ -162,6 +162,7 @@
 @media (max-width: 1024px) {
   .dashboard__stats { grid-template-columns: repeat(2, 1fr); }
   .dashboard__main  { grid-template-columns: 1fr; }
+  .dashboard__right { width: 100%; max-width: 100%; }
 }
 
 @media (max-width: 768px) {
