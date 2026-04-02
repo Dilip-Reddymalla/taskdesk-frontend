@@ -24,6 +24,18 @@ export async function getCompletedTasks(page = 1) {
   return res.data;
 }
 
+// ── GET /api/task/get/all-tasks?page=N ───────────────────────
+export async function getAllTasksApi(page = 1) {
+  const res = await api.get('/task/get/all-tasks', { params: { page } });
+  return res.data;
+}
+
+// ── PUT /api/task/edit-instance/:instanceId ──────────────────
+export async function editTaskInstanceApi(instanceId, body) {
+  const res = await api.put(`/task/edit-instance/${instanceId}`, body);
+  return res.data;
+}
+
 // ── PUT /api/task/update/:taskId ─────────────────────────────
 export async function updateTask(taskId, data) {
   const res = await api.put(`/task/update/${taskId}`, data);
@@ -39,6 +51,12 @@ export async function rescheduleTask(instanceId, newDate) {
 // ── DELETE /api/task/delete/:taskId ──────────────────────────
 export async function deleteTask(taskId) {
   const res = await api.delete(`/task/delete/${taskId}`);
+  return res.data;
+}
+
+// ── DELETE /api/task/delete-instance/:instanceId ──────────────
+export async function deleteTaskInstance(instanceId) {
+  const res = await api.delete(`/task/delete-instance/${instanceId}`);
   return res.data;
 }
 

@@ -2,14 +2,17 @@ import { useState, useCallback, useRef } from 'react';
 import {
   getPendingTasks,
   getCompletedTasks,
+  getAllTasksApi,
   createTask,
   completeTask,
   updateTask,
   deleteTask,
+  deleteTaskInstance,
   rescheduleTask,
   searchTasks,
   getCalendarTasks,
   uploadTaskImages,
+  editTaskInstanceApi,
 } from '../api/tasksApi';
 
 /**
@@ -18,7 +21,8 @@ import {
 export function useTasks() {
   const [pendingTasks, setPendingTasks]     = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
-  const [loading, setLoading]               = useState(false);
+  const [allTasks, setAllTasks]             = useState([]);
+  const [loading, setLoading]               = useState(true);
   const [error, setError]                   = useState(null);
 
   // Pagination
@@ -26,6 +30,8 @@ export function useTasks() {
   const [pendingTotal, setPendingTotal]   = useState(0);
   const [completedPage, setCompletedPage] = useState(1);
   const [completedTotal, setCompletedTotal] = useState(0);
+  const [allTasksPage, setAllTasksPage] = useState(1);
+  const [allTasksTotal, setAllTasksTotal] = useState(0);
 
   const setErr = (e) =>
     setError(e?.response?.data?.message ?? e?.message ?? 'Something went wrong');
@@ -50,6 +56,18 @@ export function useTasks() {
       setCompletedTasks(data.tasks ?? []);
       setCompletedPage(data.page ?? 1);
       setCompletedTotal(data.totalCount ?? 0);
+    } catch (e) { setErr(e); }
+    finally { setLoading(false); }
+  }, []);
+
+  const fetchAllTasks = useCallback(async (page = 1) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await getAllTasksApi(page);
+      setAllTasks(data.tasks ?? []);
+      setAllTasksPage(data.page ?? 1);
+      setAllTasksTotal(data.totalCount ?? 0);
     } catch (e) { setErr(e); }
     finally { setLoading(false); }
   }, []);
@@ -84,11 +102,29 @@ export function useTasks() {
     } catch (e) { setErr(e); throw e; }
   }, []);
 
-  const removeTask = useCallback(async (taskId) => {
+  const editInstance = useCallback(async (instanceId, body) => {
+    setError(null);
+    try {
+      const data = await editTaskInstanceApi(instanceId, body);
+      return data.instance;
+    } catch (e) { setErr(e); throw e; }
+  }, []);
+
+  const removeTask = useCallback(async (instanceId) => {
+    setError(null);
+    try {
+      await deleteTaskInstance(instanceId);
+      setPendingTasks(prev => prev.filter(t => t._id !== instanceId));
+      setCompletedTasks(prev => prev.filter(t => t._id !== instanceId));
+    } catch (e) { setErr(e); throw e; }
+  }, []);
+
+  const removeTaskSeries = useCallback(async (taskId) => {
     setError(null);
     try {
       await deleteTask(taskId);
-      setPendingTasks(prev => prev.filter(t => t.task?._id !== taskId));
+      setPendingTasks(prev => prev.filter(t => (t.task?._id ?? t.task) !== taskId));
+      setCompletedTasks(prev => prev.filter(t => (t.task?._id ?? t.task) !== taskId));
     } catch (e) { setErr(e); throw e; }
   }, []);
 
@@ -129,12 +165,13 @@ export function useTasks() {
   }, []);
 
   return {
-    pendingTasks, completedTasks,
+    pendingTasks, completedTasks, allTasks,
     pendingPage, pendingTotal,
     completedPage, completedTotal,
+    allTasksPage, allTasksTotal,
     loading, error,
-    fetchPending, fetchCompleted,
-    addTask, markComplete, editTask, removeTask,
+    fetchPending, fetchCompleted, fetchAllTasks,
+    addTask, markComplete, editTask, editInstance, removeTask, removeTaskSeries,
     reschedule, search, fetchCalendar, uploadImages,
     setPendingTasks, setCompletedTasks,
   };

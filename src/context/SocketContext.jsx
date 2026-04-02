@@ -5,7 +5,7 @@ import { getToken } from '../utils/auth';
 
 export const SocketContext = createContext(null);
 
-const SOCKET_URL = process.env.REACT_APP_SOCKET_URL || 'http://localhost:3000';
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3000';
 
 export function SocketProvider({ children }) {
   const { user, isAuthenticated } = useContext(AuthContext);

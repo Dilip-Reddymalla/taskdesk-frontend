@@ -1,0 +1,39 @@
+/* Not Found Page */
+.not-found {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-base);
+  position: relative;
+  overflow: hidden;
+}
+.not-found__glow {
+  position: absolute;
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse, rgba(124,58,237,0.15) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.not-found__content { text-align: center; position: relative; z-index: 1; animation: fadeInUp 400ms ease both; }
+.not-found__code {
+  font-size: 120px; font-weight: 800;
+  color: var(--accent);
+  opacity: 0.15;
+  line-height: 1;
+  font-family: var(--font-mono);
+  margin-bottom: -16px;
+}
+.not-found__title { font-size: 28px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px; }
+.not-found__sub   { font-size: 15px; color: var(--text-muted); margin-bottom: 28px; }
+.not-found__btn {
+  background: var(--accent);
+  color: #fff;
+  padding: 11px 24px;
+  border-radius: var(--radius-md);
+  font-size: 14px; font-weight: 600;
+  text-decoration: none;
+  transition: background var(--transition-fast), box-shadow var(--transition-fast);
+}
+.not-found__btn:hover { background: var(--accent-deep); box-shadow: var(--shadow-glow); color: #fff; }

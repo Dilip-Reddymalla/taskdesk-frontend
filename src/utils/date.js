@@ -85,6 +85,30 @@ export function isToday(date) {
 }
 
 /**
+ * Check if a date is tomorrow.
+ */
+export function isTomorrow(date) {
+  const d = new Date(date);
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  return d.getFullYear() === tomorrow.getFullYear() &&
+         d.getMonth()    === tomorrow.getMonth() &&
+         d.getDate()     === tomorrow.getDate();
+}
+
+/**
+ * Check if a date is yesterday.
+ */
+export function isYesterday(date) {
+  const d = new Date(date);
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  return d.getFullYear() === yesterday.getFullYear() &&
+         d.getMonth()    === yesterday.getMonth() &&
+         d.getDate()     === yesterday.getDate();
+}
+
+/**
  * Check if a date is overdue (in the past and not today).
  */
 export function isOverdue(date) {

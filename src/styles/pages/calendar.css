@@ -1,0 +1,45 @@
+/* Calendar Page Styles */
+.calendar-page { display: flex; flex-direction: column; gap: 20px; }
+.calendar-page__header { display: flex; align-items: center; gap: 14px; }
+.calendar-page__title { font-size: 24px; font-weight: 700; color: var(--text-primary); }
+.calendar-page__wrap { padding: 20px; overflow: hidden; }
+
+/* Override react-big-calendar dark theme */
+.rbc-calendar { background: transparent; color: var(--text-primary); font-family: var(--font-sans); }
+.rbc-header { background: var(--bg-elevated); border-color: var(--border); padding: 8px; font-size: 13px; font-weight: 600; color: var(--text-muted); }
+.rbc-month-view, .rbc-time-view, .rbc-agenda-view { border-color: var(--border); }
+.rbc-day-bg + .rbc-day-bg { border-color: var(--border); }
+.rbc-month-row + .rbc-month-row { border-color: var(--border); }
+.rbc-off-range-bg { background: var(--bg-base); }
+.rbc-today { background: rgba(124,58,237,0.07); }
+.rbc-date-cell { padding: 4px 8px; font-size: 12px; color: var(--text-muted); }
+.rbc-date-cell.rbc-now { color: var(--accent-light); font-weight: 700; }
+.rbc-show-more { color: var(--accent-light); font-size: 11px; }
+.rbc-toolbar button { color: var(--text-secondary); background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; }
+.rbc-toolbar button:hover { background: var(--bg-hover); }
+.rbc-toolbar button.rbc-active { background: var(--accent-dim); color: var(--accent-light); border-color: var(--border-active); }
+.rbc-toolbar-label { font-weight: 600; color: var(--text-primary); }
+
+/* Event detail modal */
+.calendar-event-detail { display: flex; flex-direction: column; gap: 12px; }
+.calendar-event-detail__desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+.calendar-event-detail__row { display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: var(--text-muted); padding: 8px 0; border-bottom: 1px solid var(--border); }
+.calendar-event-detail__row:last-of-type { border-bottom: none; }
+
+/* Calendar Pop-up Overlay (Show More Tasks) */
+.rbc-overlay {
+  background-color: var(--bg-elevated) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 10px !important;
+  z-index: 50 !important;
+}
+.rbc-overlay-header {
+  color: var(--text-primary) !important;
+  border-bottom: 1px solid var(--border) !important;
+  padding-bottom: 6px !important;
+  margin-bottom: 8px !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+}

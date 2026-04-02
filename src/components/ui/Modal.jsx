@@ -20,9 +20,11 @@ function Modal({ isOpen, onClose, title, children, size = 'md', footer }) {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
     };
-  }, [isOpen, handleKeyDown]);
+  }, [isOpen, handleKeyDown, title]);
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true">
